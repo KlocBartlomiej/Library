@@ -6,15 +6,15 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idusers;
+    @GeneratedValue
+    private Long id;
     private String name;
     private String surname;
     private String email;
     private String password;
     private String address;
 
-    public Long getIdusers() { return idusers; }
+    public Long getId() { return id; }
 
     public String getName() {
         return name;

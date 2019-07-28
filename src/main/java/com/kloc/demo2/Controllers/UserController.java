@@ -13,34 +13,34 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserRepository ur;
+    private UserRepository userRepository;
 
     @RequestMapping(value="getAll", method = RequestMethod.GET)
     public List<User> getUsers(){
         List<User> users = new ArrayList<>();
-        users = ur.findAll();
+        users = userRepository.findAll();
         return users;
     }
 
     @RequestMapping(value="addUser", method=RequestMethod.POST)
     public void addUser(String name, String surname, String email, String password, String address){
-        User u = new User();
-        u.setName(name);
-        u.setSurname(surname);
-        u.setEmail(email);
-        u.setPassword(password);
-        u.setAddress(address);
-        ur.save(u);
+        User user = new User();
+        user.setName(name);
+        user.setSurname(surname);
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setAddress(address);
+        userRepository.save(user);
     }
 
     @RequestMapping(value="findByEmail", method=RequestMethod.GET)
     public User findByEmail(String email){
-        User u = ur.findByEmail(email);
-        return u;
+        User user = userRepository.findByEmail(email);
+        return user;
     }
 
     @RequestMapping(value="deleteUser", method=RequestMethod.DELETE)
     public void deleteUser(String email){
-        ur.delete(ur.findByEmail(email));
+        userRepository.delete(userRepository.findByEmail(email));
     }
 }

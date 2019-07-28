@@ -1,17 +1,20 @@
 package com.kloc.demo2.Entities;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "books")
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idbooks;
+    @GeneratedValue
+    private Long id;
     private String title;
     private String author;
-    private float price;
-    private int quantity;
+    private BigDecimal price;
+    private Integer quantity;
+
+    public Long getId() { return id; }
 
     public String getTitle() {
         return title;
@@ -29,19 +32,19 @@ public class Book {
         this.author = author;
     }
 
-    public float getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 }

@@ -3,10 +3,9 @@ package com.kloc.demo2.Controllers;
 import com.kloc.demo2.Entities.Book;
 import com.kloc.demo2.Repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,40 +13,44 @@ import java.util.List;
 @RestController
 public class BookController {
 
-    @Autowired
-    private BookRepository br;
+    private final BookRepository bookRepository;
 
-    @RequestMapping(value="getAll", method=RequestMethod.GET)
-    public List<Book> getAll(){
-        List<Book> books = new ArrayList<>();
-        books = br.findAll();
+    @Autowired
+    public BookController(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
+
+    @GetMapping(value = "getAll")
+    public List<Book> getAll() {
+        List<Book> books;
+        books = bookRepository.findAll();
         return books;
     }
 
-    @RequestMapping(value="addBook", method=RequestMethod.POST)
-    public void addBook(String title, String author, float price, int quantity){
+    @PostMapping(value = "addBook")
+    public void addBook(String title, String author, BigDecimal price, int quantity) {
         Book b = new Book();
         b.setTitle(title);
         b.setAuthor(author);
         b.setPrice(price);
         b.setQuantity(quantity);
-        br.save(b);
+        bookRepository.save(b);
     }
 
-    @RequestMapping(value="findByTitle", method=RequestMethod.GET)
-    public Book findByTitle(String title){
-        return br.findByTitleIgnoreCase(title);
+    @RequestMapping(value = "findByTitle", method = RequestMethod.GET)
+    public Book findByTitle(String title) {
+        return bookRepository.findByTitleIgnoreCase(title);
     }
 
-    @RequestMapping(value="findByAuthor", method=RequestMethod.GET)
-    public List<Book> finByAuthor(String author){
+    @RequestMapping(value = "findByAuthor", method = RequestMethod.GET)
+    public List<Book> finByAuthor(String author) {
         List<Book> books = new ArrayList<>();
-        books = br.findByAuthorIgnoreCase(author);
+        books = bookRepository.findByAuthorIgnoreCase(author);
         return books;
     }
 
-    @RequestMapping(value="deleteBook", method=RequestMethod.DELETE)
-    public void deleteBook(String title){
-        br.delete(br.findByTitleIgnoreCase(title));
+    @RequestMapping(value = "deleteBook", method = RequestMethod.DELETE)
+    public void deleteBook(String title) {
+        bookRepository.delete(bookRepository.findByTitleIgnoreCase(title));
     }
 }

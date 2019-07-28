@@ -10,8 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequestMapping("order")
@@ -19,29 +18,28 @@ import java.util.List;
 public class OrderController {
 
     @Autowired
-    private OrderRepository or;
+    private OrderRepository orderRepository;
     @Autowired
-    private UserRepository ur;
+    private UserRepository userRepository;
     @Autowired
-    private BookRepository br;
+    private BookRepository bookRepository;
 
     @RequestMapping(value="getAll", method= RequestMethod.GET)
     public List<Order> getAll(){
-        List<Order> orders = new ArrayList<>();
-        orders = or.findAll();
+        List<Order> orders;
+        orders = orderRepository.findAll();
         return orders;
     }
 
     @RequestMapping(value="addOrder", method=RequestMethod.POST)
     public void addOrder(Long iduser, Long idbook){
-        Order o = new Order();
-        User user = ur.getOne(iduser);
-        o.setUser(user);
-        Book book = br.getOne(idbook);
-        o.setBook(book);
-        Date ordertime = new Date();
-        o.setOrdertime(ordertime);
-        o.setStatus("waiting");
-        or.save(o);
+        Order order = new Order();
+        User user = userRepository.getOne(iduser);
+        order.setUser(user);
+        Book book = bookRepository.getOne(idbook);
+        order.setBook(book);
+        order.setOrdertime(LocalDateTime.now());
+        order.setStatus("waiting");
+        orderRepository.save(order);
     }
 }

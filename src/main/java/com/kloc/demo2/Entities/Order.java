@@ -1,22 +1,23 @@
 package com.kloc.demo2.Entities;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "orders")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idorders;
+    @GeneratedValue
+    private Long id;
     @OneToOne
-    @JoinColumn(name = "iduser")
+    @JoinColumn(name = "id_user", referencedColumnName = "id")
     private User user;
     @OneToOne
-    @JoinColumn(name = "idbook")
+    @JoinColumn(name = "id_book", referencedColumnName = "id")
     private Book book;
-    private Date ordertime;
-    private Date deliverdate;
+    private LocalDateTime ordertime;
+    private LocalDateTime deliverdate;
+    //TODO  enum ze statusami
     private String status;
 
     public User getUser() {
@@ -35,19 +36,19 @@ public class Order {
         this.book = book;
     }
 
-    public Date getOrdertime() {
+    public LocalDateTime getOrdertime() {
         return ordertime;
     }
 
-    public void setOrdertime(Date ordertime) {
+    public void setOrdertime(LocalDateTime ordertime) {
         this.ordertime = ordertime;
     }
 
-    public Date getDeliverdate() {
+    public LocalDateTime getDeliverdate() {
         return deliverdate;
     }
 
-    public void setDeliverdate(Date deliverdate) {
+    public void setDeliverdate(LocalDateTime deliverdate) {
         this.deliverdate = deliverdate;
     }
 
