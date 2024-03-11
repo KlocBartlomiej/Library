@@ -1,4 +1,4 @@
-package com.kloc.demo2;
+package com.kloc.library;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class Demo2ApplicationTests {
+public class LibraryApplicationTests {
 
 	@Test
 	public void contextLoads() {
